@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bajrang Properties - Buy, Sell, Rent Property in India</title>
+    <meta name="description" content="Bajrang Properties - India's trusted real estate portal. Buy, sell, rent residential and commercial properties across top Indian cities." />
+    <meta name="keywords" content="real estate, property, buy property, sell property, rent property, Mumbai, Delhi, Bangalore, Hyderabad" />
+    <meta name="author" content="Bajrang Properties" />
+    <!-- Removed: <link rel="stylesheet" href="style.css"> -->
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Bajrang Properties - Find Your Dream Property" />
+    <meta property="og:description" content="India's Most Trusted Real Estate Portal" />
+    <meta property="og:type" content="website" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* ========== CSS VARIABLES ========== */
+        :root {
+            --primary: #e53935;
+            --primary-dark: #c62828;
+            --primary-light: #ff6f60;
+            --secondary: #1a1a2e;
+            --accent: #ff9800;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #757575;
+            --text: #212121;
+            --text-light: #616161;
+            --border: #e8e8e8;
+            --shadow: 0 2px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --radius-lg: 16px;
+            --transition: all 0.3s ease;
+            --font: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --header-height: 72px;
+            --max-width: 1280px;
+        }
+
+        /* Dark Mode */
+        body.dark {
+            --white: #1e1e2e;
+            --light-gray: #2a2a3e;
+            --medium-gray: #3a3a4e;
+            --text: #e8e8e8;
+            --text-light: #b0b0b0;
+            --border: #3a3a4e;
+            --shadow: 0 2px 12px rgba(0,0,0,0.3);
+            --shadow-lg: 0 8px 30px rgba(0,0,0,0.4);
+            --secondary: #e8e8e8;
+            background: #12121a;
+        }
+
+        body.dark .header { background: rgba(30,30,46,0.95); }
+        body.dark .hero__search { background: rgba(30,30,46,0.95); }
+        body.dark .property-card { background: #2a2a3e; }
+        body.dark .filter-sidebar { background: #2a2a3e; }
+        body.dark .hero__select,
+        body.dark .filter-chip,
+        body.dark .form__group input,
+        body.dark .form__group select { background: #1e1e2e; color: #e8e8e8; border-color: #3a3a4e; }
+        body.dark .modal__content { background: #2a2a3e; }
+        body.dark .locality-card { background: #2a2a3e; }
+        body.dark .footer { background: #16162a; }
+        body.dark .detail__section { background: #2a2a3e; }
+        body.dark .carousel__track .property-card { background: #2a2a3e; }
+
+        /* ========== RESET ========== */
+        * ,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+        body{font-family:var(--font);color:var(--text);background:var(--light-gray);line-height:1.6;overflow-x:hidden;min-height:100vh}
+        img{max-width:100%;height:auto;display:block}
+        a{text-decoration:none;color:inherit}
+        ul{list-style:none}
+        button{cursor:pointer;font-family:inherit;border:none;background:none}
+        input,select,textarea{font-family:inherit;font-size:inherit}
+        .container{width:100%;max-width:var(--max-width);margin:0 auto;padding:0 20px}
+
+        /* ========== BUTTONS ========== */
+        .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:var(--radius-sm);font-weight:600;font-size:14px;transition:var(--transition);white-space:nowrap}
+        .btn--primary{background:var(--primary);color:#fff}
+        .btn--primary:hover{background:var(--primary-dark);transform:translateY(-1px);box-shadow:0 4px 12px rgba(229,57,53,0.4)}
+        .btn--outline{border:2px solid var(--primary);color:var(--primary);background:transparent}
+        .btn--outline:hover{background:var(--primary);color:#fff}
+        .btn--text{color:var(--primary);padding:4px 8px;font-weight:500}
+        .btn--text:hover{text-decoration:underline}
+        .btn--icon{width:40px;height:40px;padding:0;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:18px;transition:var(--transition)}
+        .btn--icon:hover{background:rgba(229,57,53,0.1)}
+        .btn--search{background:var(--primary);color:#fff;padding:14px 28px;font-size:15px;font-weight:700;border-radius:var(--radius-sm);gap:8px}
+        .btn--search:hover{background:var(--primary-dark)}
+        .btn--sm{padding:6px 14px;font-size:13px}
+        .btn--full{width:100%;justify-content:center;padding:14px}
+        .btn--social{flex:1;border:1px solid var(--border);padding:12px;border-radius:var(--radius-sm);justify-content:center;font-weight:500}
+        .btn--social:hover{background:var(--light-gray)}
+        .btn--filter-mobile{display:none;border:1px solid var(--border);padding:8px 16px;border-radius:var(--radius-sm);font-weight:500;gap:6px}
+
+        /* ========== HEADER ========== */
+        .header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--header-height);transition:var(--transition)}
+        .header.scrolled{box-shadow:var(--shadow)}
+        .header__container{display:flex;align-items:center;justify-content:space-between;height:100%}
+        .header__logo{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700;color:var(--secondary)}
+        .header__logo i{color:var(--primary);font-size:28px}
+        .header__logo strong{color:var(--primary)}
+        .header__nav{display:flex;align-items:center;gap:20px}
+        .header__menu{display:flex;gap:4px}
+        .header__link{padding:8px 14px;font-size:14px;font-weight:500;border-radius:var(--radius-sm);transition:var(--transition);color:var(--text)}
+        .header__link:hover,.header__link.active{color:var(--primary);background:rgba(229,57,53,0.08)}
+        .header__actions{display:flex;align-items:center;gap:10px}
+        .header__hamburger{display:none;flex-direction:column;gap:5px;padding:8px;z-index:1001}
+        .header__hamburger span{display:block;width:24px;height:2.5px;background:var(--text);border-radius:2px;transition:var(--transition)}
+        .header__hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+        .header__hamburger.active span:nth-child(2){opacity:0}
+        .header__hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+        /* ========== HERO ========== */
+        .hero{position:relative;min-height:550px;display:flex;align-items:center;background:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1400') center/cover no-repeat;margin-top:var(--header-height)}
+        .hero__overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,0.75),rgba(0,0,0,0.5))}
+        .hero__content{position:relative;z-index:1;padding:60px 0;text-align:center;color:#fff}
+        .hero__title{font-size:clamp(28px,5vw,48px);font-weight:900;margin-bottom:12px;line-height:1.2}
+        .hero__subtitle{font-size:clamp(14px,2vw,18px);opacity:0.9;margin-bottom:36px;font-weight:400}
+        .hero__tabs{display:flex;justify-content:center;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+        .hero__tab{padding:10px 22px;border-radius:25px;font-weight:600;font-size:14px;color:#fff;background:rgba(255,255,255,0.15);transition:var(--transition);border:1px solid transparent}
+        .hero__tab:hover{background:rgba(255,255,255,0.25)}
+        .hero__tab.active{background:var(--primary);border-color:var(--primary)}
+        .hero__search{display:flex;gap:8px;background:rgba(255,255,255,0.15);backdrop-filter:blur(20px);padding:12px;border-radius:var(--radius-lg);flex-wrap:wrap;justify-content:center;border:1px solid rgba(255,255,255,0.2)}
+        .hero__search-field{position:relative;flex:1;min-width:160px}
+        .hero__search-field i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--primary);font-size:14px;z-index:1}
+        .hero__select{width:100%;padding:14px 14px 14px 38px;border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.1);color:#fff;font-size:14px;font-weight:500;appearance:none;cursor:pointer;transition:var(--transition)}
+        .hero__select option{color:var(--text);background:var(--white)}
+        .hero__select:focus{outline:none;border-color:var(--primary);background:rgba(255,255,255,0.2)}
+
+        /* ========== BREADCRUMB ========== */
+        .breadcrumb{padding:16px 0;font-size:13px;color:var(--dark-gray)}
+        .breadcrumb a{color:var(--primary)}
+        .breadcrumb a:hover{text-decoration:underline}
+        .breadcrumb span{margin:0 6px}
+
+        /* ========== LISTINGS LAYOUT ========== */
+        .listings-section{padding:20px 0 60px}
+        .listings__layout{display:grid;grid-template-columns:280px 1fr;gap:24px;align-items:start}
+
+        /* ========== FILTER SIDEBAR ========== */
+        .filter-sidebar{background:var(--white);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);position:sticky;top:calc(var(--header-height) + 20px);max-height:calc(100vh - var(--header-height) - 40px);overflow-y:auto}
+        .filter-sidebar__header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+        .filter-sidebar__header h3{font-size:16px;display:flex;align-items:center;gap:8px}
+        .filter-sidebar__close{display:none;position:absolute;top:12px;right:16px;font-size:24px;cursor:pointer;color:var(--dark-gray)}
+        .filter-group{margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+        .filter-group:last-child{border-bottom:none}
+        .filter-group h4{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--dark-gray);margin-bottom:12px}
+        .filter__chips{display:flex;flex-wrap:wrap;gap:8px}
+        .filter-chip{padding:6px 14px;border-radius:20px;font-size:13px;font-weight:500;border:1px solid var(--border);background:var(--light-gray);transition:var(--transition)}
+        .filter-chip:hover{border-color:var(--primary);color:var(--primary)}
+        .filter-chip.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+        .filter__checkboxes{display:flex;flex-direction:column;gap:8px}
+        .filter__checkboxes label{display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;padding:4px 0}
+        .filter__checkboxes input[type="checkbox"]{accent-color:var(--primary);width:16px;height:16px;cursor:pointer}
+        .filter__range{width:100%;margin:4px 0;accent-color:var(--primary)}
+        .filter__range-values{font-size:13px;color:var(--text-light);margin-bottom:4px}
+
+        /* ========== LISTINGS MAIN ========== */
+        .listings-main{min-width:0}
+        .listings__header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+        .listings__count{font-size:14px;color:var(--text-light)}
+        .listings__count span{font-weight:700;color:var(--text)}
+        .listings__sort{display:flex;align-items:center;gap:10px}
+        .listings__sort-select{min-width:180px;color:var(--text);background:var(--white);border:1px solid var(--border)}
+
+        /* ========== COMPARE BAR ========== */
+        .compare-bar{position:fixed;bottom:0;left:0;right:0;background:var(--white);box-shadow:0 -4px 20px rgba(0,0,0,0.15);padding:12px 24px;display:flex;align-items:center;gap:16px;z-index:999;flex-wrap:wrap}
+        .compare-bar__items{display:flex;gap:8px;flex:1;overflow-x:auto}
+        .compare-bar__item{display:flex;align-items:center;gap:8px;background:var(--light-gray);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:500}
+        .compare-bar__item button{color:var(--primary);font-size:16px;padding:0 2px}
+
+        /* ========== PROPERTY GRID ========== */
+        .properties-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+        .property-card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:var(--transition);position:relative}
+        .property-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+        .property-card__image{position:relative;height:200px;overflow:hidden}
+        .property-card__image img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease}
+        .property-card:hover .property-card__image img{transform:scale(1.05)}
+        .property-card__badge{position:absolute;top:12px;left:12px;background:var(--primary);color:#fff;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+        .property-card__badge--rera{background:#4caf50;left:auto;right:12px}
+        .property-card__badge--new{background:var(--accent)}
+        .property-card__favorite{position:absolute;top:12px;right:12px;width:36px;height:36px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;transition:var(--transition);z-index:2;border:none}
+        .property-card__favorite:hover{transform:scale(1.1)}
+        .property-card__favorite.active{color:var(--primary)}
+        .property-card__content{padding:16px}
+        .property-card__price{font-size:20px;font-weight:800;color:var(--primary);margin-bottom:4px}
+        .property-card__title{font-size:15px;font-weight:600;margin-bottom:6px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+        .property-card__location{font-size:13px;color:var(--text-light);margin-bottom:12px;display:flex;align-items:center;gap:4px}
+        .property-card__meta{display:flex;gap:16px;margin-bottom:14px;flex-wrap:wrap}
+        .property-card__meta-item{font-size:12px;color:var(--text-light);display:flex;align-items:center;gap:4px}
+        .property-card__meta-item i{color:var(--primary)}
+        .property-card__actions{display:flex;gap:8px}
+        .property-card__actions .btn{flex:1;justify-content:center;font-size:13px;padding:8px 12px}
+
+        /* ========== PAGINATION ========== */
+        .pagination{display:flex;justify-content:center;gap:6px;margin-top:32px;flex-wrap:wrap}
+        .pagination button{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;border:1px solid var(--border);transition:var(--transition);background:var(--white);color:var(--text)}
+        .pagination button:hover{border-color:var(--primary);color:var(--primary)}
+        .pagination button.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+        .pagination button:disabled{opacity:0.4;cursor:not-allowed}
+
+        /* ========== FEATURED PROJECTS ========== */
+        .featured-projects{padding:60px 0;background:var(--white)}
+        .section__title{font-size:clamp(22px,4vw,32px);font-weight:800;text-align:center;margin-bottom:8px}
+        .section__subtitle{text-align:center;color:var(--text-light);margin-bottom:36px;font-size:15px}
+        .featured__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px}
+        .featured-card{background:var(--white);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);transition:var(--transition);border:1px solid var(--border)}
+        .featured-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+        .featured-card__image{height:220px;position:relative;overflow:hidden}
+        .featured-card__image img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s}
+        .featured-card:hover .featured-card__image img{transform:scale(1.05)}
+        .featured-card__rera{position:absolute;top:12px;right:12px;background:#4caf50;color:#fff;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700;display:flex;align-items:center;gap:4px}
+        .featured-card__content{padding:20px}
+        .featured-card__project{font-size:18px;font-weight:700;margin-bottom:4px}
+        .featured-card__builder{font-size:14px;color:var(--text-light);margin-bottom:12px}
+        .featured-card__price{font-size:20px;font-weight:800;color:var(--primary);margin-bottom:12px}
+        .featured-card__location{font-size:13px;color:var(--text-light);margin-bottom:8px;display:flex;align-items:center;gap:4px}
+
+        /* ========== NEW LAUNCHES ========== */
+        .new-launches{padding:60px 0;background:var(--light-gray)}
+        .carousel{position:relative;overflow:hidden}
+        .carousel__track{display:flex;gap:20px;overflow-x:auto;scroll-behavior:smooth;scroll-snap-type:x mandatory;padding:10px 0;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+        .carousel__track::-webkit-scrollbar{display:none}
+        .carousel__track .property-card{min-width:320px;scroll-snap-align:start;flex-shrink:0}
+        .carousel__btn{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;background:var(--white);border-radius:50%;box-shadow:var(--shadow-lg);display:flex;align-items:center;justify-content:center;font-size:18px;z-index:5;transition:var(--transition);border:none}
+        .carousel__btn:hover{background:var(--primary);color:#fff}
+        .carousel__btn--prev{left:0}
+        .carousel__btn--next{right:0}
+
+        /* ========== TOP LOCALITIES ========== */
+        .top-localities{padding:60px 0;background:var(--white)}
+        .localities__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+        .locality-card{padding:20px;background:var(--light-gray);border-radius:var(--radius);transition:var(--transition);cursor:pointer;border:1px solid transparent}
+        .locality-card:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:var(--shadow)}
+        .locality-card h4{font-size:15px;font-weight:600;margin-bottom:6px}
+        .locality-card__rate{font-size:20px;font-weight:800;color:var(--primary);margin-bottom:4px}
+        .locality-card span{font-size:12px;color:var(--text-light)}
+
+        /* ========== FOOTER ========== */
+        .footer{background:var(--secondary);color:#ccc;padding:50px 0 0}
+        .footer__grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding-bottom:40px}
+        .footer__brand h3{font-size:20px;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+        .footer__brand h3 i{color:var(--primary)}
+        .footer__brand p{font-size:13px;line-height:1.7;margin-bottom:16px;opacity:0.8}
+        .footer__social{display:flex;gap:12px}
+        .footer__social a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;transition:var(--transition);font-size:16px}
+        .footer__social a:hover{background:var(--primary);color:#fff}
+        .footer__links h4{font-size:14px;color:#fff;margin-bottom:14px;font-weight:600}
+        .footer__links a{display:block;font-size:13px;padding:4px 0;opacity:0.8;transition:var(--transition)}
+        .footer__links a:hover{opacity:1;color:var(--primary);padding-left:4px}
+        .footer__bottom{border-top:1px solid rgba(255,255,255,0.1);padding:18px 0;text-align:center;font-size:12px;opacity:0.7}
+        .footer__bottom p{margin:0}
+
+        /* ========== MODALS ========== */
+        .modal{display:none;position:fixed;inset:0;z-index:2000;align-items:center;justify-content:center}
+        .modal.active{display:flex}
+        .modal__overlay{position:absolute;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px)}
+        .modal__content{position:relative;background:var(--white);border-radius:var(--radius-lg);padding:36px;width:90%;max-width:440px;max-height:90vh;overflow-y:auto;animation:modalIn 0.3s ease}
+        .modal__content--detail{max-width:900px;padding:0;overflow:hidden}
+        .modal__content--compare{max-width:1100px}
+        .modal--xl .modal__content{max-width:1100px}
+        @keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(0.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+        .modal__close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;background:var(--light-gray);display:flex;align-items:center;justify-content:center;font-size:22px;transition:var(--transition);z-index:5;border:none}
+        .modal__close:hover{background:var(--primary);color:#fff}
+        .modal__content h2{font-size:22px;font-weight:800;margin-bottom:4px}
+        .modal__content>p{font-size:14px;color:var(--text-light);margin-bottom:20px}
+        .modal__tabs{display:flex;gap:0;margin-bottom:20px;border-bottom:2px solid var(--border)}
+        .modal__tab{padding:10px 20px;font-weight:600;font-size:14px;color:var(--dark-gray);border-bottom:2px solid transparent;margin-bottom:-2px;transition:var(--transition)}
+        .modal__tab.active{color:var(--primary);border-bottom-color:var(--primary)}
+        .modal__form{display:flex;flex-direction:column;gap:16px}
+        .modal__divider{text-align:center;position:relative;margin:20px 0}
+        .modal__divider::before{content:'';position:absolute;left:0;top:50%;width:100%;height:1px;background:var(--border)}
+        .modal__divider span{position:relative;background:var(--white);padding:0 16px;font-size:12px;color:var(--dark-gray)}
+        body.dark .modal__divider span{background:#2a2a3e}
+        .modal__social{display:flex;gap:12px}
+        .modal__switch{text-align:center;margin-top:16px;font-size:13px}
+        .modal__switch a{color:var(--primary);font-weight:600}
+        .modal__switch a:hover{text-decoration:underline}
+
+        /* ========== FORM ELEMENTS ========== */
+        .form__group{display:flex;flex-direction:column;gap:6px}
+        .form__group label{font-size:13px;font-weight:600;color:var(--text)}
+        .form__group input,.form__group select,.form__group textarea{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;transition:var(--transition);background:var(--white);color:var(--text)}
+        .form__group input:focus,.form__group select:focus,.form__group textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(229,57,53,0.1)}
+        .form__row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+        /* ========== PROPERTY DETAIL ========== */
+        .detail__gallery{position:relative;height:400px;overflow:hidden}
+        .detail__gallery img{width:100%;height:100%;object-fit:cover}
+        .detail__gallery-nav{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px}
+        .detail__gallery-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.6);cursor:pointer;transition:var(--transition)}
+        .detail__gallery-dot.active{background:var(--primary);width:28px;border-radius:5px}
+        .detail__body{padding:24px}
+        .detail__price{font-size:28px;font-weight:900;color:var(--primary);margin-bottom:4px}
+        .detail__title{font-size:20px;font-weight:700;margin-bottom:4px}
+        .detail__location{font-size:14px;color:var(--text-light);margin-bottom:20px;display:flex;align-items:center;gap:6px}
+        .detail__meta{display:flex;gap:24px;margin-bottom:24px;flex-wrap:wrap}
+        .detail__meta-item{text-align:center}
+        .detail__meta-item strong{display:block;font-size:18px;color:var(--text)}
+        .detail__meta-item span{font-size:12px;color:var(--text-light)}
+        .detail__section{background:var(--light-gray);padding:16px;border-radius:var(--radius-sm);margin-bottom:16px}
+        .detail__section h4{font-size:14px;font-weight:700;margin-bottom:10px}
+        .detail__amenities{display:flex;flex-wrap:wrap;gap:10px}
+        .detail__amenity{background:var(--white);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid var(--border)}
+        .detail__emi-calculator .form__row{margin-bottom:8px}
+        .detail__emi-result{text-align:center;padding:12px;background:var(--primary);color:#fff;border-radius:var(--radius-sm);font-size:18px;font-weight:700;margin-top:8px}
+        .detail__contact-form{display:flex;flex-direction:column;gap:12px}
+        .detail__similar{margin-top:20px}
+
+        /* ========== COMPARE TABLE ========== */
+        .compare-table{overflow-x:auto}
+        .compare-table table{width:100%;border-collapse:collapse;font-size:13px}
+        .compare-table th,.compare-table td{padding:12px 16px;text-align:center;border:1px solid var(--border)}
+        .compare-table th{background:var(--light-gray);font-weight:700}
+
+        /* ========== TOAST ========== */
+        .toast{position:fixed;bottom:30px;right:30px;background:var(--secondary);color:#fff;padding:14px 24px;border-radius:var(--radius-sm);font-weight:500;font-size:14px;z-index:3000;opacity:0;transform:translateY(20px);transition:all 0.3s ease;pointer-events:none}
+        .toast.show{opacity:1;transform:translateY(0)}
+        .toast.success{background:#4caf50}
+        .toast.error{background:var(--primary)}
+
+        /* ========== SCROLL TO TOP ========== */
+        .scroll-top{position:fixed;bottom:30px;right:30px;width:44px;height:44px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:var(--shadow-lg);z-index:900;opacity:0;transform:translateY(20px);transition:var(--transition);pointer-events:none;border:none}
+        .scroll-top.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+        .scroll-top:hover{background:var(--primary-dark)}
+
+        /* ========== NO RESULTS ========== */
+        .no-results{text-align:center;padding:60px 20px;grid-column:1/-1}
+        .no-results i{font-size:48px;color:var(--medium-gray);margin-bottom:16px}
+        .no-results h3{font-size:18px;margin-bottom:8px}
+        .no-results p{color:var(--text-light)}
+
+        /* ========== SKELETON LOADING ========== */
+        .skeleton{background:linear-gradient(90deg,var(--medium-gray) 25%,var(--light-gray) 50%,var(--medium-gray) 75%);background-size:200% 100%;animation:skeleton-pulse 1.5s infinite;border-radius:var(--radius-sm)}
+        @keyframes skeleton-pulse{0%{background-position:200% 0}100%{background-position:-200% 0}}
+        .skeleton-img{height:200px;width:100%}
+        .skeleton-text{height:16px;margin-bottom:8px;width:80%}
+        .skeleton-text-sm{height:12px;width:60%}
+
+        /* ========== MOBILE FILTER OVERLAY ========== */
+        .filter-overlay{display:none}
+        @media(max-width:1024px){
+            .filter-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1500}
+            .filter-overlay.active{display:block}
+            .filter-sidebar{position:fixed;top:0;left:-320px;width:300px;height:100vh;z-index:1501;border-radius:0;max-height:100vh;transition:left 0.3s ease}
+            .filter-sidebar.active{left:0}
+            .filter-sidebar__close{display:block}
+            .listings__layout{grid-template-columns:1fr}
+            .btn--filter-mobile{display:flex}
+            .properties-grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+        }
+
+        /* ========== TABLET ========== */
+        @media(max-width:768px){
+            .header__nav{position:fixed;top:0;right:-100%;width:280px;height:100vh;background:var(--white);flex-direction:column;padding:80px 24px 24px;transition:right 0.3s ease;box-shadow:var(--shadow-lg);gap:24px}
+            .header__nav.active{right:0}
+            .header__menu{flex-direction:column;gap:4px;width:100%}
+            .header__link{display:block;padding:12px 16px;font-size:15px;border-radius:var(--radius-sm)}
+            .header__actions{flex-direction:column;width:100%;gap:10px}
+            .header__actions .btn{width:100%;justify-content:center}
+            .header__hamburger{display:flex}
+            .hero{min-height:450px}
+            .hero__search{flex-direction:column;padding:16px}
+            .hero__search-field{min-width:100%}
+            .hero__tabs{gap:4px}
+            .hero__tab{padding:8px 14px;font-size:12px}
+            .properties-grid{grid-template-columns:1fr}
+            .featured__grid{grid-template-columns:1fr}
+            .footer__grid{grid-template-columns:1fr 1fr;gap:30px}
+            .form__row{grid-template-columns:1fr}
+            .detail__gallery{height:250px}
+            .carousel__track .property-card{min-width:280px}
+            .carousel__btn{display:none}
+        }
+
+        /* ========== MOBILE ========== */
+        @media(max-width:480px){
+            .container{padding:0 14px}
+            .hero{min-height:380px}
+            .hero__title{font-size:24px}
+            .hero__content{padding:40px 0}
+            .properties-grid{grid-template-columns:1fr}
+            .localities__grid{grid-template-columns:1fr 1fr}
+            .footer__grid{grid-template-columns:1fr;gap:24px}
+            .detail__meta{gap:16px}
+            .pagination button{width:34px;height:34px;font-size:12px}
+            .modal__content{padding:24px}
+            .modal__social{flex-direction:column}
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="header" id="header">
+        <div class="container header__container">
+            <a href="#" class="header__logo">
+                <i class="fa-solid fa-building"></i>
+                <span>Bajrang <strong>Properties</strong></span>
+            </a>
+            <nav class="header__nav" id="headerNav">
+                <ul class="header__menu">
+                    <li><a href="#" class="header__link active">Buy</a></li>
+                    <li><a href="#" class="header__link">Rent</a></li>
+                    <li><a href="#" class="header__link">Commercial</a></li>
+                    <li><a href="#" class="header__link">New Projects</a></li>
+                    <li><a href="#" class="header__link">Sell</a></li>
+                    <li><a href="#" class="header__link">Home Loans</a></li>
+                </ul>
+                <div class="header__actions">
+                    <button class="btn btn--outline" id="loginBtn"><i class="fa-regular fa-user"></i> Login</button>
+                    <button class="btn btn--primary" id="postPropertyBtn">Post Property <i class="fa-solid fa-plus"></i></button>
+                    <button class="btn btn--icon" id="darkModeToggle" title="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
+                </div>
+            </nav>
+            <button class="header__hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero" id="hero">
+            <div class="hero__overlay"></div>
+            <div class="container hero__content">
+                <h1 class="hero__title">Find Your Dream Property</h1>
+                <p class="hero__subtitle">India's Most Trusted Real Estate Portal - Search from 100+ Verified Properties</p>
+                <div class="hero__tabs">
+                    <button class="hero__tab active" data-tab="buy">Buy</button>
+                    <button class="hero__tab" data-tab="rent">Rent</button>
+                    <button class="hero__tab" data-tab="commercial">Commercial</button>
+                    <button class="hero__tab" data-tab="pg">PG</button>
+                    <button class="hero__tab" data-tab="plots">Plots</button>
+                </div>
+                <div class="hero__search">
+                    <div class="hero__search-field">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <select id="searchCity" class="hero__select">
+                            <option value="">Select City</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Bangalore">Bangalore</option>
+                            <option value="Hyderabad">Hyderabad</option>
+                            <option value="Pune">Pune</option>
+                            <option value="Chennai">Chennai</option>
+                            <option value="Kolkata">Kolkata</option>
+                            <option value="Noida">Noida</option>
+                            <option value="Gurgaon">Gurgaon</option>
+                            <option value="Ahmedabad">Ahmedabad</option>
+                            <option value="Jaipur">Jaipur</option>
+                            <option value="Lucknow">Lucknow</option>
+                            <option value="Chandigarh">Chandigarh</option>
+                            <option value="Indore">Indore</option>
+                            <option value="Kochi">Kochi</option>
+                        </select>
+                    </div>
+                    <div class="hero__search-field">
+                        <i class="fa-solid fa-building"></i>
+                        <select id="searchType" class="hero__select">
+                            <option value="">Property Type</option>
+                            <option value="Apartment">Apartment</option>
+                            <option value="Villa">Villa</option>
+                            <option value="Plot">Plot</option>
+                            <option value="Independent House">Independent House</option>
+                            <option value="Office">Office</option>
+                            <option value="Shop">Shop</option>
+                            <option value="PG">PG</option>
+                        </select>
+                    </div>
+                    <div class="hero__search-field">
+                        <i class="fa-solid fa-bed"></i>
+                        <select id="searchBHK" class="hero__select">
+                            <option value="">BHK</option>
+                            <option value="1">1 BHK</option>
+                            <option value="2">2 BHK</option>
+                            <option value="3">3 BHK</option>
+                            <option value="4">4 BHK</option>
+                            <option value="5">5 BHK</option>
+                        </select>
+                    </div>
+                    <div class="hero__search-field">
+                        <i class="fa-solid fa-indian-rupee-sign"></i>
+                        <select id="searchBudget" class="hero__select">
+                            <option value="">Budget</option>
+                            <option value="0-5000000">Under ₹50 Lakh</option>
+                            <option value="5000000-10000000">₹50 Lakh - ₹1 Cr</option>
+                            <option value="10000000-20000000">₹1 Cr - ₹2 Cr</option>
+                            <option value="20000000-50000000">₹2 Cr - ₹5 Cr</option>
+                            <option value="50000000-100000000">₹5 Cr - ₹10 Cr</option>
+                            <option value="100000000-999999999">Above ₹10 Cr</option>
+                        </select>
+                    </div>
+                    <button class="btn btn--search" id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- BREADCRUMB -->
+        <div class="breadcrumb" id="breadcrumb">
+            <div class="container">
+                <a href="#">Home</a> <span>/</span> <span id="breadcrumbCurrent">All Properties</span>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT AREA -->
+        <section class="listings-section">
+            <div class="container listings__layout">
+                <!-- FILTER SIDEBAR -->
+                <aside class="filter-sidebar" id="filterSidebar">
+                    <div class="filter-sidebar__header">
+                        <h3><i class="fa-solid fa-sliders"></i> Filters</h3>
+                        <button class="btn btn--text" id="clearFilters">Clear All</button>
+                    </div>
+                    <div class="filter-sidebar__close" id="filterClose">&times;</div>
+
+                    <!-- Budget Range -->
+                    <div class="filter-group">
+                        <h4>Budget Range</h4>
+                        <div class="filter__range-values">
+                            <span id="minPriceLabel">₹0</span> - <span id="maxPriceLabel">₹10 Cr+</span>
+                        </div>
+                        <input type="range" class="filter__range" id="priceMin" min="0" max="100000000" step="500000" value="0">
+                        <input type="range" class="filter__range" id="priceMax" min="0" max="100000000" step="500000" value="100000000">
+                    </div>
+
+                    <!-- BHK Filter -->
+                    <div class="filter-group">
+                        <h4>BHK Type</h4>
+                        <div class="filter__chips" id="bhkFilter">
+                            <button class="filter-chip" data-value="1">1 BHK</button>
+                            <button class="filter-chip" data-value="2">2 BHK</button>
+                            <button class="filter-chip" data-value="3">3 BHK</button>
+                            <button class="filter-chip" data-value="4">4 BHK</button>
+                            <button class="filter-chip" data-value="5">5 BHK</button>
+                        </div>
+                    </div>
+
+                    <!-- Property Type -->
+                    <div class="filter-group">
+                        <h4>Property Type</h4>
+                        <div class="filter__checkboxes" id="typeFilter">
+                            <label><input type="checkbox" value="Apartment"> Apartment</label>
+                            <label><input type="checkbox" value="Villa"> Villa</label>
+                            <label><input type="checkbox" value="Plot"> Plot</label>
+                            <label><input type="checkbox" value="Independent House"> Independent House</label>
+                            <label><input type="checkbox" value="Office"> Office</label>
+                            <label><input type="checkbox" value="Shop"> Shop</label>
+                            <label><input type="checkbox" value="PG"> PG</label>
+                        </div>
+                    </div>
+
+                    <!-- Furnishing -->
+                    <div class="filter-group">
+                        <h4>Furnishing</h4>
+                        <div class="filter__chips" id="furnishFilter">
+                            <button class="filter-chip" data-value="Fully Furnished">Fully Furnished</button>
+                            <button class="filter-chip" data-value="Semi-Furnished">Semi-Furnished</button>
+                            <button class="filter-chip" data-value="Unfurnished">Unfurnished</button>
+                        </div>
+                    </div>
+
+                    <!-- Posted By -->
+                    <div class="filter-group">
+                        <h4>Posted By</h4>
+                        <div class="filter__chips" id="postedByFilter">
+                            <button class="filter-chip" data-value="Owner">Owner</button>
+                            <button class="filter-chip" data-value="Builder">Builder</button>
+                            <button class="filter-chip" data-value="Agent">Agent</button>
+                        </div>
+                    </div>
+
+                    <!-- Possession Status -->
+                    <div class="filter-group">
+                        <h4>Possession Status</h4>
+                        <div class="filter__chips" id="possessionFilter">
+                            <button class="filter-chip" data-value="Ready to Move">Ready to Move</button>
+                            <button class="filter-chip" data-value="Under Construction">Under Construction</button>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- PROPERTY LISTINGS -->
+                <div class="listings-main">
+                    <!-- Sorting & Results Header -->
+                    <div class="listings__header">
+                        <p class="listings__count" id="resultsCount">Showing <span>100</span> properties</p>
+                        <div class="listings__sort">
+                            <button class="btn btn--filter-mobile" id="filterToggleBtn"><i class="fa-solid fa-filter"></i> Filters</button>
+                            <select id="sortSelect" class="hero__select listings__sort-select">
+                                <option value="default">Sort By: Default</option>
+                                <option value="price-asc">Price: Low to High</option>
+                                <option value="price-desc">Price: High to Low</option>
+                                <option value="newest">Newest First</option>
+                                <option value="popular">Most Popular</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Compare Bar -->
+                    <div class="compare-bar" id="compareBar" style="display:none;">
+                        <span>Compare (<span id="compareCount">0</span>/4)</span>
+                        <div class="compare-bar__items" id="compareItems"></div>
+                        <button class="btn btn--primary btn--sm" id="compareBtn">Compare Now</button>
+                        <button class="btn btn--text" id="clearCompare">Clear</button>
+                    </div>
+
+                    <!-- Property Grid -->
+                    <div class="properties-grid" id="propertiesGrid">
+                        <!-- Dynamic content -->
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination" id="pagination">
+                        <!-- Dynamic content -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURED PROJECTS -->
+        <section class="featured-projects">
+            <div class="container">
+                <h2 class="section__title">Featured Projects</h2>
+                <p class="section__subtitle">Premium properties handpicked for you</p>
+                <div class="featured__grid" id="featuredGrid">
+                    <!-- Dynamic content -->
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-projects">
+            <div class="container">
+                <h2 class="section__title">premium plans</h2>
+                <p class="section__subtitle">Premium properties handpicked for you</p>
+                <div class="featured__grid" id="featuredGrid">
+                    <!-- Dynamic content -->
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW LAUNCH PROJECTS -->
+        <section class="new-launches">
+            <div class="container">
+                <h2 class="section__title">New Launch Projects</h2>
+                <p class="section__subtitle">Be the first to book these exciting new projects</p>
+                <div class="carousel" id="newLaunchCarousel">
+                    <button class="carousel__btn carousel__btn--prev" id="carouselPrev"><i class="fa-solid fa-chevron-left"></i></button>
+                    <div class="carousel__track" id="carouselTrack">
+                        <!-- Dynamic content -->
+                    </div>
+                    <button class="carousel__btn carousel__btn--next" id="carouselNext"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TOP LOCALITIES -->
+        <section class="top-localities">
+            <div class="container">
+                <h2 class="section__title">Top Localities</h2>
+                <p class="section__subtitle">Most searched areas across Indian cities</p>
+                <div class="localities__grid">
+                    <div class="locality-card"><h4>Andheri West, Mumbai</h4><p class="locality-card__rate">₹25,000/sq.ft</p><span>45+ properties</span></div>
+                    <div class="locality-card"><h4>Whitefield, Bangalore</h4><p class="locality-card__rate">₹8,500/sq.ft</p><span>82+ properties</span></div>
+                    <div class="locality-card"><h4>Noida Sector 150</h4><p class="locality-card__rate">₹7,200/sq.ft</p><span>38+ properties</span></div>
+                    <div class="locality-card"><h4>Gachibowli, Hyderabad</h4><p class="locality-card__rate">₹9,800/sq.ft</p><span>55+ properties</span></div>
+                    <div class="locality-card"><h4>Koregaon Park, Pune</h4><p class="locality-card__rate">₹14,500/sq.ft</p><span>30+ properties</span></div>
+                    <div class="locality-card"><h4>Golf Course Road, Gurgaon</h4><p class="locality-card__rate">₹18,000/sq.ft</p><span>25+ properties</span></div>
+                    <div class="locality-card"><h4>Banjara Hills, Hyderabad</h4><p class="locality-card__rate">₹12,000/sq.ft</p><span>40+ properties</span></div>
+                    <div class="locality-card"><h4>Salt Lake, Kolkata</h4><p class="locality-card__rate">₹6,500/sq.ft</p><span>35+ properties</span></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer__grid">
+            <div class="footer__brand">
+                <h3><i class="fa-solid fa-building"></i> Bajrang Properties</h3>
+                <p>India's most trusted real estate portal. Find your dream home, office, or investment property with us.</p>
+                <div class="footer__social">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer__links">
+                <h4>Quick Links</h4>
+                <a href="#">About Us</a><a href="#">Contact</a><a href="#">Careers</a><a href="#">Blog</a><a href="#">Sitemap</a>
+            </div>
+            <div class="footer__links">
+                <h4>Properties</h4>
+                <a href="#">Buy Property</a><a href="#">Rent Property</a><a href="#">Commercial</a><a href="#">New Projects</a><a href="#">Plots</a>
+            </div>
+            <div class="footer__links">
+                <h4>Support</h4>
+                <a href="#">Help Center</a><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">Report Issue</a><a href="#">FAQs</a>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <p>&copy; 2026 Bajrang Properties. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- LOGIN MODAL -->
+    <div class="modal" id="loginModal">
+        <div class="modal__overlay"></div>
+        <div class="modal__content">
+            <button class="modal__close" id="loginModalClose">&times;</button>
+            <h2>Welcome Back</h2>
+            <p>Login to your Bajrang Properties account</p>
+            <div class="modal__tabs">
+                <button class="modal__tab active" data-modal-tab="email">Email / Phone</button>
+                <button class="modal__tab" data-modal-tab="otp">OTP</button>
+            </div>
+            <form class="modal__form" id="loginForm">
+                <div class="form__group">
+                    <label>Email or Phone</label>
+                    <input type="text" placeholder="Enter email or phone number" required>
+                </div>
+                <div class="form__group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn--primary btn--full">Login</button>
+            </form>
+            <div class="modal__divider"><span>or</span></div>
+            <div class="modal__social">
+                <button class="btn btn--social"><i class="fa-brands fa-google"></i> Google</button>
+                <button class="btn btn--social"><i class="fa-brands fa-facebook"></i> Facebook</button>
+            </div>
+            <p class="modal__switch">Don't have an account? <a href="#" id="showRegister">Register</a></p>
+        </div>
+    </div>
+
+    <!-- REGISTER MODAL -->
+    <div class="modal" id="registerModal">
+        <div class="modal__overlay"></div>
+        <div class="modal__content">
+            <button class="modal__close" id="registerModalClose">&times;</button>
+            <h2>Create Account</h2>
+            <p>Join Bajrang Properties today</p>
+            <form class="modal__form" id="registerForm">
+                <div class="form__group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Enter your full name" required>
+                </div>
+                <div class="form__group">
+                    <label>Email or Phone</label>
+                    <input type="text" placeholder="Enter email or phone number" required>
+                </div>
+                <div class="form__group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Create a password" required>
+                </div>
+                <button type="submit" class="btn btn--primary btn--full">Register</button>
+            </form>
+            <div class="modal__divider"><span>or</span></div>
+            <div class="modal__social">
+                <button class="btn btn--social"><i class="fa-brands fa-google"></i> Google</button>
+                <button class="btn btn--social"><i class="fa-brands fa-facebook"></i> Facebook</button>
+            </div>
+            <p class="modal__switch">Already have an account? <a href="#" id="showLogin">Login</a></p>
+        </div>
+    </div>
+
+    <!-- PROPERTY DETAIL MODAL -->
+    <div class="modal modal--lg" id="propertyModal">
+        <div class="modal__overlay"></div>
+        <div class="modal__content modal__content--detail">
+            <button class="modal__close" id="propertyModalClose">&times;</button>
+            <div id="propertyDetailContent">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- POST PROPERTY MODAL -->
+    <div class="modal modal--lg" id="postPropertyModal">
+        <div class="modal__overlay"></div>
+        <div class="modal__content">
+            <button class="modal__close" id="postPropertyModalClose">&times;</button>
+            <h2>Post Your Property</h2>
+            <p>List your property and reach millions of buyers</p>
+            <form class="modal__form" id="postPropertyForm">
+                <div class="form__row">
+                    <div class="form__group">
+                        <label>Property Title *</label>
+                        <input type="text" placeholder="e.g., 3 BHK Apartment in Andheri West" required>
+                    </div>
+                    <div class="form__group">
+                        <label>Property Type *</label>
+                        <select required><option value="">Select</option><option>Apartment</option><option>Villa</option><option>Plot</option><option>Independent House</option><option>Office</option><option>Shop</option><option>PG</option></select>
+                    </div>
+                </div>
+                <div class="form__row">
+                    <div class="form__group">
+                        <label>City *</label>
+                        <select required><option value="">Select City</option><option>Mumbai</option><option>Delhi</option><option>Bangalore</option><option>Hyderabad</option><option>Pune</option><option>Chennai</option><option>Kolkata</option><option>Noida</option><option>Gurgaon</option><option>Ahmedabad</option><option>Jaipur</option><option>Lucknow</option><option>Chandigarh</option><option>Indore</option><option>Kochi</option></select>
+                    </div>
+                    <div class="form__group">
+                        <label>Locality *</label>
+                        <input type="text" placeholder="Enter locality" required>
+                    </div>
+                </div>
+                <div class="form__row">
+                    <div class="form__group">
+                        <label>Price (₹) *</label>
+                        <input type="number" placeholder="Enter price" required>
+                    </div>
+                    <div class="form__group">
+                        <label>Area (sq.ft) *</label>
+                        <input type="number" placeholder="Enter area" required>
+                    </div>
+                </div>
+                <div class="form__row">
+                    <div class="form__group">
+                        <label>BHK</label>
+                        <select><option value="">Select</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+                    </div>
+                    <div class="form__group">
+                        <label>Furnishing</label>
+                        <select><option value="">Select</option><option>Fully Furnished</option><option>Semi-Furnished</option><option>Unfurnished</option></select>
+                    </div>
+                </div>
+                <div class="form__group">
+                    <label>Upload Images</label>
+                    <input type="file" accept="image/*" multiple>
+                </div>
+                <div class="form__row">
+                    <div class="form__group">
+                        <label>Contact Name *</label>
+                        <input type="text" placeholder="Your name" required>
+                    </div>
+                    <div class="form__group">
+                        <label>Contact Phone *</label>
+                        <input type="tel" placeholder="Your phone number" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn--primary btn--full">Submit Property</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- COMPARE MODAL -->
+    <div class="modal modal--xl" id="compareModal">
+        <div class="modal__overlay"></div>
+        <div class="modal__content modal__content--compare">
+            <button class="modal__close" id="compareModalClose">&times;</button>
+            <h2>Compare Properties</h2>
+            <div class="compare-table" id="compareTable">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <!-- SCROLL TO TOP -->
+    <button class="scroll-top" id="scrollTopBtn"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <script>
+        /* ========== BAJRANG PROPERTIES - MAIN SCRIPT ========== */
+
+        // ============ EMBEDDED PROPERTIES DATA ============
+        const EMBEDDED_PROPERTIES = [{"id":1,"title":"3 BHK Apartment in Andheri West","city":"Mumbai","locality":"Andheri West","type":"Apartment","bhk":3,"price":25000000,"area":1450,"furnishing":"Semi-Furnished","postedBy":"Builder","possession":"Ready to Move","image":"https://www.facebook.com/HotelGrandLatur/","featured":true,"newLaunch":false,"rera":"RERA12345","builder":"Lodha Group","project":"Lodha Supremus"},{"id":2,"title":"2 BHK Independent House in Whitefield","city":"Bangalore","locality":"Whitefield","type":"Independent House","bhk":2,"price":12000000,"area":1200,"furnishing":"Fully Furnished","postedBy":"Owner","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":3,"title":"4 BHK Villa in Jubilee Hills","city":"Hyderabad","locality":"Jubilee Hills","type":"Villa","bhk":4,"price":45000000,"area":3200,"furnishing":"Unfurnished","postedBy":"Agent","possession":"Under Construction","image":"https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600","featured":true,"newLaunch":true,"rera":"RERA67890","builder":"Prestige Group","project":"Prestige Hills"},{"id":4,"title":"1 BHK Apartment in Koregaon Park","city":"Pune","locality":"Koregaon Park","type":"Apartment","bhk":1,"price":6500000,"area":680,"furnishing":"Semi-Furnished","postedBy":"Builder","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600","featured":false,"newLaunch":false,"rera":"RERA11111","builder":"Rohan Builders","project":"Rohan Lehera"},{"id":5,"title":"3 BHK Apartment in Sector 150","city":"Noida","locality":"Sector 150","type":"Apartment","bhk":3,"price":9500000,"area":1650,"furnishing":"Fully Furnished","postedBy":"Builder","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600","featured":true,"newLaunch":true,"rera":"RERA22222","builder":"Godrej Properties","project":"Godrej Woods"},{"id":6,"title":"2 BHK Apartment in Velachery","city":"Chennai","locality":"Velachery","type":"Apartment","bhk":2,"price":8000000,"area":1050,"furnishing":"Semi-Furnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":7,"title":"5 BHK Villa in Alipore","city":"Kolkata","locality":"Alipore","type":"Villa","bhk":5,"price":55000000,"area":4500,"furnishing":"Fully Furnished","postedBy":"Owner","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600","featured":true,"newLaunch":false,"rera":"","builder":"","project":""},{"id":8,"title":"3 BHK Apartment in Golf Course Road","city":"Gurgaon","locality":"Golf Course Road","type":"Apartment","bhk":3,"price":18000000,"area":1850,"furnishing":"Fully Furnished","postedBy":"Builder","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600","featured":true,"newLaunch":false,"rera":"RERA33333","builder":"DLF","project":"DLF Camellias"},{"id":9,"title":"2 BHK Apartment in Satellite","city":"Ahmedabad","locality":"Satellite","type":"Apartment","bhk":2,"price":5500000,"area":980,"furnishing":"Semi-Furnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600566753086-00f18f6b0050?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":10,"title":"3 BHK Apartment in Malviya Nagar","city":"Jaipur","locality":"Malviya Nagar","type":"Apartment","bhk":3,"price":6500000,"area":1400,"furnishing":"Unfurnished","postedBy":"Builder","possession":"Under Construction","image":"https://images.unsplash.com/photo-1600585153490-76fb20a32601?w=600","featured":false,"newLaunch":true,"rera":"RERA44444","builder":"Mahindra Lifespaces","project":"Mahindra Aura"},{"id":11,"title":"4 BHK Apartment in Gomti Nagar","city":"Lucknow","locality":"Gomti Nagar","type":"Apartment","bhk":4,"price":8500000,"area":2200,"furnishing":"Semi-Furnished","postedBy":"Owner","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":12,"title":"3 BHK Apartment in Sector 17","city":"Chandigarh","locality":"Sector 17","type":"Apartment","bhk":3,"price":12000000,"area":1600,"furnishing":"Fully Furnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":13,"title":"2 BHK Apartment in Vijay Nagar","city":"Indore","locality":"Vijay Nagar","type":"Apartment","bhk":2,"price":4200000,"area":900,"furnishing":"Semi-Furnished","postedBy":"Builder","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=600","featured":false,"newLaunch":false,"rera":"RERA55555","builder":"Omaxe","project":"Omaxe City"},{"id":14,"title":"3 BHK Apartment in Marine Drive","city":"Kochi","locality":"Marine Drive","type":"Apartment","bhk":3,"price":9500000,"area":1500,"furnishing":"Semi-Furnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":15,"title":"1 BHK PG in Koramangala","city":"Bangalore","locality":"Koramangala","type":"PG","bhk":1,"price":800000,"area":250,"furnishing":"Fully Furnished","postedBy":"Owner","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":16,"title":"Plot in Gachibowli","city":"Hyderabad","locality":"Gachibowli","type":"Plot","bhk":0,"price":15000000,"area":2400,"furnishing":"Unfurnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600","featured":true,"newLaunch":false,"rera":"","builder":"","project":""},{"id":17,"title":"Office Space in Bandra Kurla Complex","city":"Mumbai","locality":"Bandra Kurla Complex","type":"Office","bhk":0,"price":35000000,"area":2000,"furnishing":"Fully Furnished","postedBy":"Builder","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1497366216548-37526070297c?w=600","featured":true,"newLaunch":false,"rera":"RERA66666","builder":"Wadhwa Group","project":"Wadhwa The Address"},{"id":18,"title":"Shop in Connaught Place","city":"Delhi","locality":"Connaught Place","type":"Shop","bhk":0,"price":25000000,"area":500,"furnishing":"Unfurnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":19,"title":"2 BHK Apartment in Hinjewadi","city":"Pune","locality":"Hinjewadi","type":"Apartment","bhk":2,"price":5500000,"area":950,"furnishing":"Semi-Furnished","postedBy":"Builder","possession":"Under Construction","image":"https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=600","featured":false,"newLaunch":true,"rera":"RERA77777","builder":"Kolte Patil","project":"Kolte Patil Life Republic"},{"id":20,"title":"3 BHK Independent House in Adyar","city":"Chennai","locality":"Adyar","type":"Independent House","bhk":3,"price":18000000,"area":2000,"furnishing":"Fully Furnished","postedBy":"Owner","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600585154084-4e5fe7c39198?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":21,"title":"4 BHK Apartment in Powai","city":"Mumbai","locality":"Powai","type":"Apartment","bhk":4,"price":38000000,"area":2400,"furnishing":"Fully Furnished","postedBy":"Builder","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600","featured":true,"newLaunch":false,"rera":"RERA88888","builder":"Hiranandani","project":"Hiranandani Gardens"},{"id":22,"title":"2 BHK Apartment in Electronic City","city":"Bangalore","locality":"Electronic City","type":"Apartment","bhk":2,"price":4800000,"area":980,"furnishing":"Semi-Furnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":23,"title":"3 BHK Villa in Banjara Hills","city":"Hyderabad","locality":"Banjara Hills","type":"Villa","bhk":3,"price":28000000,"area":2800,"furnishing":"Fully Furnished","postedBy":"Owner","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600","featured":true,"newLaunch":false,"rera":"","builder":"","project":""},{"id":24,"title":"1 BHK Apartment in Lajpat Nagar","city":"Delhi","locality":"Lajpat Nagar","type":"Apartment","bhk":1,"price":5500000,"area":550,"furnishing":"Semi-Furnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":25,"title":"3 BHK Apartment in Wakad","city":"Pune","locality":"Wakad","type":"Apartment","bhk":3,"price":7500000,"area":1350,"furnishing":"Unfurnished","postedBy":"Builder","possession":"Under Construction","image":"https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=600","featured":false,"newLaunch":true,"rera":"RERA99999","builder":"VTP Realty","project":"VTP Pegasus"},{"id":26,"title":"2 BHK Apartment in Salt Lake","city":"Kolkata","locality":"Salt Lake","type":"Apartment","bhk":2,"price":6500000,"area":1000,"furnishing":"Semi-Furnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":27,"title":"4 BHK Apartment in Cyber City","city":"Gurgaon","locality":"Cyber City","type":"Apartment","bhk":4,"price":25000000,"area":2600,"furnishing":"Fully Furnished","postedBy":"Builder","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600","featured":true,"newLaunch":false,"rera":"RERA10101","builder":"M3M","project":"M3M Golfestate"},{"id":28,"title":"3 BHK Apartment in Bodakdev","city":"Ahmedabad","locality":"Bodakdev","type":"Apartment","bhk":3,"price":8500000,"area":1550,"furnishing":"Semi-Furnished","postedBy":"Owner","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":29,"title":"2 BHK Apartment in Vaishali Nagar","city":"Jaipur","locality":"Vaishali Nagar","type":"Apartment","bhk":2,"price":4200000,"area":920,"furnishing":"Semi-Furnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600566753086-00f18f6b0050?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":30,"title":"Plot in Hazratganj","city":"Lucknow","locality":"Hazratganj","type":"Plot","bhk":0,"price":6000000,"area":1500,"furnishing":"Unfurnished","postedBy":"Owner","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":31,"title":"3 BHK Apartment in Panchkula","city":"Chandigarh","locality":"Panchkula","type":"Apartment","bhk":3,"price":9000000,"area":1550,"furnishing":"Fully Furnished","postedBy":"Builder","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600585153490-76fb20a32601?w=600","featured":false,"newLaunch":false,"rera":"RERA12121","builder":"TDI","project":"TDI City"},{"id":32,"title":"2 BHK Independent House in Palasia","city":"Indore","locality":"Palasia","type":"Independent House","bhk":2,"price":5500000,"area":1100,"furnishing":"Semi-Furnished","postedBy":"Owner","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":33,"title":"3 BHK Apartment in Kakkanad","city":"Kochi","locality":"Kakkanad","type":"Apartment","bhk":3,"price":7500000,"area":1400,"furnishing":"Semi-Furnished","postedBy":"Agent","possession":"Under Construction","image":"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600","featured":false,"newLaunch":true,"rera":"RERA13131","builder":"DLF","project":"DLF Riverside"},{"id":34,"title":"1 BHK Apartment in Thane West","city":"Mumbai","locality":"Thane West","type":"Apartment","bhk":1,"price":4500000,"area":520,"furnishing":"Semi-Furnished","postedBy":"Builder","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600","featured":false,"newLaunch":false,"rera":"RERA14141","builder":"Rustomjee","project":"Rustomjee Urbania"},{"id":35,"title":"Shop in Jayanagar","city":"Bangalore","locality":"Jayanagar","type":"Shop","bhk":0,"price":12000000,"area":400,"furnishing":"Unfurnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":36,"title":"Office in HITECH City","city":"Hyderabad","locality":"HITECH City","type":"Office","bhk":0,"price":18000000,"area":1500,"furnishing":"Fully Furnished","postedBy":"Builder","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1497366216548-37526070297c?w=600","featured":true,"newLaunch":false,"rera":"RERA15151","builder":"RMZ Corp","project":"RMZ Nexity"},{"id":37,"title":"2 BHK Apartment in Dwarka","city":"Delhi","locality":"Dwarka","type":"Apartment","bhk":2,"price":7500000,"area":980,"furnishing":"Semi-Furnished","postedBy":"Owner","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":38,"title":"3 BHK Apartment in Baner","city":"Pune","locality":"Baner","type":"Apartment","bhk":3,"price":9500000,"area":1500,"furnishing":"Fully Furnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":39,"title":"4 BHK Villa in ECR","city":"Chennai","locality":"ECR","type":"Villa","bhk":4,"price":32000000,"area":3500,"furnishing":"Fully Furnished","postedBy":"Builder","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600","featured":true,"newLaunch":true,"rera":"RERA16161","builder":"Prestige","project":"Prestige Silver Sands"},{"id":40,"title":"2 BHK Apartment in New Town","city":"Kolkata","locality":"New Town","type":"Apartment","bhk":2,"price":4800000,"area":920,"furnishing":"Semi-Furnished","postedBy":"Builder","possession":"Under Construction","image":"https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=600","featured":false,"newLaunch":true,"rera":"RERA17171","builder":"Shapoorji Pallonji","project":"Shapoorji Sukhobristi"},{"id":41,"title":"3 BHK Apartment in Sushant Lok","city":"Gurgaon","locality":"Sushant Lok","type":"Apartment","bhk":3,"price":14000000,"area":1700,"furnishing":"Fully Furnished","postedBy":"Owner","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600585154084-4e5fe7c39198?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":42,"title":"2 BHK Apartment in SG Highway","city":"Ahmedabad","locality":"SG Highway","type":"Apartment","bhk":2,"price":5000000,"area":960,"furnishing":"Semi-Furnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":43,"title":"Plot in Jagatpura","city":"Jaipur","locality":"Jagatpura","type":"Plot","bhk":0,"price":3500000,"area":1200,"furnishing":"Unfurnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":44,"title":"3 BHK Apartment in Aliganj","city":"Lucknow","locality":"Aliganj","type":"Apartment","bhk":3,"price":6000000,"area":1400,"furnishing":"Semi-Furnished","postedBy":"Builder","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600","featured":false,"newLaunch":false,"rera":"RERA18181","builder":"Sahara","project":"Sahara City Homes"},{"id":45,"title":"2 BHK Apartment in Zirakpur","city":"Chandigarh","locality":"Zirakpur","type":"Apartment","bhk":2,"price":4500000,"area":950,"furnishing":"Semi-Furnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":46,"title":"3 BHK Independent House in AB Road","city":"Indore","locality":"AB Road","type":"Independent House","bhk":3,"price":8000000,"area":1800,"furnishing":"Fully Furnished","postedBy":"Owner","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":47,"title":"2 BHK Apartment in Edapally","city":"Kochi","locality":"Edapally","type":"Apartment","bhk":2,"price":5000000,"area":980,"furnishing":"Semi-Furnished","postedBy":"Builder","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600","featured":false,"newLaunch":false,"rera":"RERA19191","builder":"Concrete Builders","project":"Concrete Avenues"},{"id":48,"title":"1 BHK PG in Vile Parle","city":"Mumbai","locality":"Vile Parle","type":"PG","bhk":1,"price":1200000,"area":200,"furnishing":"Fully Furnished","postedBy":"Owner","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":49,"title":"4 BHK Apartment in Indiranagar","city":"Bangalore","locality":"Indiranagar","type":"Apartment","bhk":4,"price":28000000,"area":2400,"furnishing":"Fully Furnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600566753086-00f18f6b0050?w=600","featured":true,"newLaunch":false,"rera":"","builder":"","project":""},{"id":50,"title":"3 BHK Apartment in Kondapur","city":"Hyderabad","locality":"Kondapur","type":"Apartment","bhk":3,"price":11000000,"area":1550,"furnishing":"Semi-Furnished","postedBy":"Builder","possession":"Under Construction","image":"https://images.unsplash.com/photo-1600585153490-76fb20a32601?w=600","featured":false,"newLaunch":true,"rera":"RERA20202","builder":"Aparna Constructions","project":"Aparna Cyberzon"},{"id":51,"title":"Shop in Karol Bagh","city":"Delhi","locality":"Karol Bagh","type":"Shop","bhk":0,"price":15000000,"area":350,"furnishing":"Unfurnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":52,"title":"2 BHK Apartment in Kharadi","city":"Pune","locality":"Kharadi","type":"Apartment","bhk":2,"price":6500000,"area":1000,"furnishing":"Fully Furnished","postedBy":"Owner","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":53,"title":"3 BHK Villa in OMR","city":"Chennai","locality":"OMR","type":"Villa","bhk":3,"price":16000000,"area":2200,"furnishing":"Semi-Furnished","postedBy":"Builder","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600","featured":false,"newLaunch":true,"rera":"RERA21212","builder":"Casagrand","project":"Casagrand Boulevard"},{"id":54,"title":"2 BHK Apartment in Rajarhat","city":"Kolkata","locality":"Rajarhat","type":"Apartment","bhk":2,"price":4200000,"area":880,"furnishing":"Semi-Furnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":55,"title":"5 BHK Villa in DLF Phase 1","city":"Gurgaon","locality":"DLF Phase 1","type":"Villa","bhk":5,"price":60000000,"area":5000,"furnishing":"Fully Furnished","postedBy":"Owner","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600","featured":true,"newLaunch":false,"rera":"","builder":"","project":""},{"id":56,"title":"2 BHK Apartment in Vastrapur","city":"Ahmedabad","locality":"Vastrapur","type":"Apartment","bhk":2,"price":7000000,"area":1050,"furnishing":"Fully Furnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600585154084-4e5fe7c39198?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":57,"title":"3 BHK Apartment in Mansarovar","city":"Jaipur","locality":"Mansarovar","type":"Apartment","bhk":3,"price":5500000,"area":1350,"furnishing":"Semi-Furnished","postedBy":"Builder","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=600","featured":false,"newLaunch":false,"rera":"RERA22222","builder":"Arihant","project":"Arihant Aaradhya"},{"id":58,"title":"Plot in Jankipuram","city":"Lucknow","locality":"Jankipuram","type":"Plot","bhk":0,"price":4000000,"area":1300,"furnishing":"Unfurnished","postedBy":"Owner","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":59,"title":"3 BHK Apartment in Mohali","city":"Chandigarh","locality":"Mohali","type":"Apartment","bhk":3,"price":8000000,"area":1500,"furnishing":"Semi-Furnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":60,"title":"2 BHK Apartment in Scheme 78","city":"Indore","locality":"Scheme 78","type":"Apartment","bhk":2,"price":3800000,"area":880,"furnishing":"Semi-Furnished","postedBy":"Builder","possession":"Under Construction","image":"https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600","featured":false,"newLaunch":true,"rera":"RERA23232","builder":"DLF","project":"DLF Garden City"},{"id":61,"title":"4 BHK Villa in Fort Kochi","city":"Kochi","locality":"Fort Kochi","type":"Villa","bhk":4,"price":18000000,"area":3000,"furnishing":"Fully Furnished","postedBy":"Owner","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":62,"title":"2 BHK Apartment in Chembur","city":"Mumbai","locality":"Chembur","type":"Apartment","bhk":2,"price":11000000,"area":850,"furnishing":"Semi-Furnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":63,"title":"3 BHK Apartment in HSR Layout","city":"Bangalore","locality":"HSR Layout","type":"Apartment","bhk":3,"price":13000000,"area":1550,"furnishing":"Fully Furnished","postedBy":"Owner","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":64,"title":"Office in Madhapur","city":"Hyderabad","locality":"Madhapur","type":"Office","bhk":0,"price":12000000,"area":1200,"furnishing":"Fully Furnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1497366216548-37526070297c?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":65,"title":"1 BHK Apartment in Saket","city":"Delhi","locality":"Saket","type":"Apartment","bhk":1,"price":6000000,"area":580,"furnishing":"Semi-Furnished","postedBy":"Builder","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600","featured":false,"newLaunch":false,"rera":"RERA24242","builder":"Tata Housing","project":"Tata Primanti"},{"id":66,"title":"3 BHK Apartment in Aundh","city":"Pune","locality":"Aundh","type":"Apartment","bhk":3,"price":12000000,"area":1550,"furnishing":"Fully Furnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":67,"title":"2 BHK Independent House in Anna Nagar","city":"Chennai","locality":"Anna Nagar","type":"Independent House","bhk":2,"price":9500000,"area":1300,"furnishing":"Semi-Furnished","postedBy":"Owner","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":68,"title":"3 BHK Apartment in Ballygunge","city":"Kolkata","locality":"Ballygunge","type":"Apartment","bhk":3,"price":11000000,"area":1600,"furnishing":"Fully Furnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=600","featured":true,"newLaunch":false,"rera":"","builder":"","project":""},{"id":69,"title":"2 BHK Apartment in Sector 57","city":"Gurgaon","locality":"Sector 57","type":"Apartment","bhk":2,"price":8500000,"area":1050,"furnishing":"Semi-Furnished","postedBy":"Builder","possession":"Under Construction","image":"https://images.unsplash.com/photo-1600566753086-00f18f6b0050?w=600","featured":false,"newLaunch":true,"rera":"RERA25252","builder":"Emaar","project":"Emaar Palm Hills"},{"id":70,"title":"Shop in CG Road","city":"Ahmedabad","locality":"CG Road","type":"Shop","bhk":0,"price":18000000,"area":450,"furnishing":"Unfurnished","postedBy":"Agent","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600","featured":false,"newLaunch":false,"rera":"","builder":"","project":""},{"id":71,"title":"3 BHK Villa in Ajmer Road","city":"Jaipur","locality":"Ajmer Road","type":"Villa","bhk":3,"price":7500000,"area":2000,"furnishing":"Semi-Furnished","postedBy":"Builder","possession":"Ready to Move","image":"https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600","featured":false,"newLaunch":false,"rera":"RERA26262","builder":"Ashiana","project":"Ashiana Upavan"},{"id":72,"title":"2 BHK Apartment in Indira Nagar","city":"Lucknow","locality":"Indira Nagar","type":"Apartment","bhk":2,"price":3500000,"area":900,
